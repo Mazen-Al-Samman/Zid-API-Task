@@ -17,11 +17,9 @@ class UserRepository extends BaseRepository
     /**
      * @throws Exception
      */
-    public function create(): ?User
+    public function create($attributes): ?User
     {
-        if (empty($this->model)) throw new Exception("There is no model to save!");
-        $this->model->password = Hash::make($this->model->password);
-        if (!$this->model->save()) return null;
-        return $this->model;
+        $attributes['password'] = Hash::make($attributes['password']);
+        return $this->model->create($attributes);
     }
 }

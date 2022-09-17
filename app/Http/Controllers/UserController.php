@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +35,7 @@ class UserController extends Controller
      * @return User
      * @throws Exception
      */
-    public function store(Request $request): User
+    public function store(Request $request)
     {
         $validators = Validator::make($request->all(), [
             'first_name' => ['required', 'string'],
@@ -37,11 +44,7 @@ class UserController extends Controller
             'password' => ['required', 'string'],
         ]);
         if ($validators->fails()) return $validators->errors();
-
-        $userModel = new User();
-        $userRepository = new UserRepository($userModel);
-        $userRepository->load($request->post());
-        return $userRepository->create();
+        return $this->userRepository->create($request->all());
     }
 
     /**
