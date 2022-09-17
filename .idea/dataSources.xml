@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Zid Backend" uuid="b50fae9b-a02e-4340-a2d6-f35b266a25fb">
+    <data-source source="LOCAL" name="ZID" uuid="4e54866c-24ad-4a14-bd59-7d522c77a955">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
