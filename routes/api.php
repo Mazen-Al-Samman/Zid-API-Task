@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/register', [UserController::class, 'store'])->name('register');
 
-Route::group(['prefix' => 'user'], function () {
-   Route::post('/create', [UserController::class, 'store']);
+// For Unauthorized
+Route::get('/Unauthorized', function () {
+    return response()->json(['message' => "Unauthorized, Please login to access this page!"], Response::HTTP_UNAUTHORIZED);
+})->name('unauthorized');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/profile', [UserController::class, 'profile']);
+        Route::post('/logout', [UserController::class, 'logout']);
+    });
 });
