@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,4 +29,5 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/logout', [UserController::class, 'logout']);
     });
+    Route::get('/categories', [CategoryController::class, 'index']);
 });
