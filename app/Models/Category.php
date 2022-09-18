@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 /** @property string $label */
 /** @property string $description */
 class Category extends Model
 {
     use HasFactory;
+    use HasTranslations;
+
+    public $translatable = ['label', 'description'];
 
     protected $table = 'category';
     /**

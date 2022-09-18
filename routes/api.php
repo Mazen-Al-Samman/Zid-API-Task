@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,10 +25,22 @@ Route::get('/Unauthorized', function () {
     return response()->json(['message' => "Unauthorized, Please login to access this page!"], Response::HTTP_UNAUTHORIZED);
 })->name('unauthorized');
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => ['auth:api', 'localization']], function () {
+    // User Actions
     Route::group(['prefix' => 'user'], function () {
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/logout', [UserController::class, 'logout']);
     });
+
+    // Store Actions
+    Route::group(['prefix' => 'store'], function () {
+        Route::group(['middleware' => 'user.store'], function () {
+            Route::get('/', [StoreController::class, 'index']);
+            Route::post('/update', [StoreController::class, 'update']);
+        });
+        Route::post('/create', [StoreController::class, 'store']);
+        Route::get('/{slug}', [StoreController::class, 'show']);
+    });
+
     Route::get('/categories', [CategoryController::class, 'index']);
 });

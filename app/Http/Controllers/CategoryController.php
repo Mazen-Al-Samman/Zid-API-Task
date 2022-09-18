@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use Illuminate\Database\Eloquent\Collection;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CategoryController extends Controller
 {
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $userRepository)
+    {
+        $this->categoryRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +22,6 @@ class CategoryController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(['data' => Category::all()], ResponseAlias::HTTP_OK);
+        return response()->json(['data' => $this->categoryRepository->listAll()], ResponseAlias::HTTP_OK);
     }
 }

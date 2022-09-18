@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /** @property string $first_name */
 /** @property string $last_name */
 /** @property string $email */
-
+/** @property Store $store */
 /** @property string $password */
 class User extends Authenticatable implements JWTSubject
 {
@@ -44,5 +45,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function store(): HasOne
+    {
+        return $this->hasOne(Store::class);
     }
 }

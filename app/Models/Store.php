@@ -16,7 +16,13 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'slug',
+        'name', 'description', 'slug', 'user_id', 'category_id'
+    ];
+
+    protected $casts = [
+        'name' => 'json',
+        'description' => 'json',
+        'category_id' => 'integer'
     ];
 
     /**
