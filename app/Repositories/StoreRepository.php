@@ -31,6 +31,6 @@ class StoreRepository extends BaseRepository
 
     public static function getBySlug($slug)
     {
-        return Store::where('slug', $slug)->get();
+        return Store::with('category')->where('slug', $slug)->get();
     }
 }

@@ -24,7 +24,7 @@ class StoreController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'store' => auth()->user()->store
+            'store' => auth()->user()->store()->with(['category'])->get()
         ], ResponseCodes::HTTP_OK);
     }
 
