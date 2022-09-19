@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Translatable\HasTranslations;
 
 class Store extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
     protected $table = 'store';
     /**
@@ -19,6 +21,8 @@ class Store extends Model
     protected $fillable = [
         'name', 'description', 'slug', 'user_id', 'category_id'
     ];
+
+    public $translatable = ['name', 'description'];
 
     protected $casts = [
         'name' => 'json',

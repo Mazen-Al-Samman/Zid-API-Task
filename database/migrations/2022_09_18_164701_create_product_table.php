@@ -19,8 +19,8 @@ class CreateProductTable extends Migration
             $table->json('description');
             $table->unsignedBigInteger('store_id');
             $table->float('price');
-            $table->enum('vat_type', ['fixed', 'percentage']);
-            $table->float('vat_value');
+            $table->enum('vat_type', ['fixed', 'percentage'])->nullable();
+            $table->float('vat_value')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('store');
         });

@@ -40,8 +40,8 @@ class FillCategoriesTable extends Migration
 
         foreach ($categories as $category) {
             $categoryModel = new Category();
-            $categoryModel->label = json_encode($category['label'], JSON_UNESCAPED_UNICODE);
-            $categoryModel->description = json_encode($category['description'], JSON_UNESCAPED_UNICODE);
+            $categoryModel->label = $category['label'];
+            $categoryModel->description = $category['description'];
             if (!$categoryModel->save()) throw new Exception("Can't save category model !");
             echo "Saved" . PHP_EOL;
         }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +39,18 @@ Route::group(['middleware' => ['auth:api', 'localization']], function () {
             Route::get('/', [StoreController::class, 'index']);
             Route::post('/update', [StoreController::class, 'update']);
         });
+
         Route::post('/create', [StoreController::class, 'store']);
         Route::get('/{slug}', [StoreController::class, 'show']);
+    });
+
+    // Product Actions
+    Route::group(['prefix' => 'product'], function () {
+        Route::group(['middleware' => 'user.store'], function () {
+            Route::post('/create', [ProductController::class, 'store']);
+        });
+        Route::get('/list', [ProductController::class, 'index']);
+        Route::get('/{id}', [ProductController::class, 'show']);
     });
 
     Route::get('/categories', [CategoryController::class, 'index']);
