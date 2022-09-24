@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth:api', 'localization']], function () {
     Route::group(['prefix' => 'cart'], function () {
         Route::get('/', [CartController::class, 'get']);
         Route::post('/add-to-cart', [CartController::class, 'addToCart']);
+        Route::post('/checkout', [CartController::class, 'checkout']);
+        Route::post('/confirm', [CartController::class, 'confirmCheckout']);
     });
 
     Route::get('/categories', [CategoryController::class, 'index']);

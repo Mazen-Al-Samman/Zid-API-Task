@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CartDetails;
+use App\Models\Product;
 
 /** @property CartDetails $model */
 class CartDetailsRepository extends BaseRepository

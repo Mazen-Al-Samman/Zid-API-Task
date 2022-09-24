@@ -66,9 +66,23 @@ class ProductRepository extends BaseRepository
         ];
     }
 
-    public function getByCart(Cart $cart)
+    public function getByCart(Cart $cart): array
     {
-        $ids = $cart->cartDetails()->pluck('product_id')->toArray();
-        return $this->model->whereIn('id', $ids)->get();
+        $cartProducts = $cart->cartDetails;
+        $products = [];
+        foreach ($cartProducts as $cartDetail) {
+            $products[] = $cartDetail->product;
+        }
+        return $products;
+    }
+
+    public function getCartTotalPrice(Cart $cart): int
+    {
+        $cartProducts = $this->getByCart($cart);
+        $totalPrice = 0;
+        foreach ($cartProducts as $product) {
+            $totalPrice += $product->priceWithVat();
+        }
+        return $totalPrice;
     }
 }
