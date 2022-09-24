@@ -58,7 +58,7 @@ class StoreController extends Controller
      */
     public function show($slug): JsonResponse
     {
-        $storeModel = StoreRepository::getBySlug($slug);
+        $storeModel = $this->storeRepository->getBySlug($slug);
         if (!empty($storeModel)) return response()->json(['store' => $storeModel], ResponseCodes::HTTP_OK);
         return response()->json(['error' => 'No Store with the given slug!'], ResponseCodes::HTTP_UNPROCESSABLE_ENTITY);
     }

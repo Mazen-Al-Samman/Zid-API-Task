@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Helpers\StoreSerializer;
 use App\Models\Store;
 use Illuminate\Support\Str;
 
@@ -17,8 +18,7 @@ class StoreRepository extends BaseRepository
     {
         $attributes['user_id'] = auth()->id();
         $attributes['slug'] = Str::slug($attributes['name']['en']) . '-store';
-        $this->model->create($attributes);
-        return $this->model;
+        return $this->model->create($attributes);
     }
 
     public function update($attributes): Store
@@ -29,8 +29,9 @@ class StoreRepository extends BaseRepository
         return $this->model;
     }
 
-    public static function getBySlug($slug)
+    public function getBySlug($slug): array
     {
-        return Store::with('category')->where('slug', $slug)->get();
+        $store = $this->model->where('slug', $slug)->get();
+        return StoreSerializer::get($store);
     }
 }

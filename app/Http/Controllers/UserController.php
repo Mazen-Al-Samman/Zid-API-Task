@@ -69,7 +69,7 @@ class UserController extends Controller
         }
 
         if (!$token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['Error' => ['Incorrect User name or Password!']], Response::HTTP_UNAUTHORIZED);
         }
 
         return $this->respondWithToken($token);

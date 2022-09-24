@@ -38,3 +38,9 @@ Please create a Laravel API e-commerce project to achieve these requirements:
 4. Change the DataBase connection info in ```.env``` to match your database,
 5. Run ```php artisan migrate```
 6. Serve the project by running ```php artisan serve```
+
+## APIs Collection
+Here is the [PostMan Collection](https://drive.google.com/file/d/1kXsc9fAgICVIvkckmcAPo1OkpSN_da2_/view?usp=sharing) for all APIs.
+
+## DATABASE ERD
+![img.png](img.png)
