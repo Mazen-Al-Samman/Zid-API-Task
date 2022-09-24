@@ -56,13 +56,13 @@ class ProductController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $model = ProductRepository::getById($id);
-        if (empty($model)) return response()->json([
+        $modelData = $this->productRepository->getResponseModel($id);
+        if (empty($modelData)) return response()->json([
             'error' => "Product not found!"
         ], ResponseCodes::HTTP_NOT_FOUND);
 
         return response()->json([
-            'data' => $model
+            'data' => $modelData
         ], ResponseCodes::HTTP_OK);
     }
 }

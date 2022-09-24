@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Cart;
 use App\Models\Product;
 
 /** @property Product $model */
@@ -41,9 +42,14 @@ class ProductRepository extends BaseRepository
         return $result;
     }
 
-    public static function getById($id): ?array
+    public function getById($id)
     {
-        $productModel = Product::where('id', $id)->first();
+        return $this->model->where('id', $id)->first();
+    }
+
+    public function getResponseModel($id): ?array
+    {
+        $productModel = $this->getById($id);
         if (empty($productModel)) return null;
         $storeModel = $productModel->store;
         return [
@@ -58,5 +64,11 @@ class ProductRepository extends BaseRepository
                 'description' => $storeModel->description
             ]
         ];
+    }
+
+    public function getByCart(Cart $cart)
+    {
+        $ids = $cart->cartDetails()->pluck('product_id')->toArray();
+        return $this->model->whereIn('id', $ids)->get();
     }
 }

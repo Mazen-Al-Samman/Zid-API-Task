@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -51,6 +52,12 @@ Route::group(['middleware' => ['auth:api', 'localization']], function () {
         });
         Route::get('/list', [ProductController::class, 'index']);
         Route::get('/{id}', [ProductController::class, 'show']);
+    });
+
+    // Cart Action
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('/', [CartController::class, 'get']);
+        Route::post('/add-to-cart', [CartController::class, 'addToCart']);
     });
 
     Route::get('/categories', [CategoryController::class, 'index']);
